@@ -41,7 +41,6 @@ public class RegisterActivity extends AppCompatActivity {
         register_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //if()
 
                 Cursor cursor = null;
 

@@ -3,7 +3,8 @@
 Projeto de gerenciamento de gastos em android
 
 
-Requisitos funcionais: 
+Requisitos funcionais:
+- Sistema baseado em SOA,  utilizando o java com axis2 para webservice, usando mysql como banco de dados.
 - Um mês possui vários custos
 - Cada custo possui uma modalidade ( ex: luz, água, etc..)
 - Modalidades adicionadas pelo usuário vão para cloud, e outros usuários poderão utilizá-las
@@ -15,6 +16,8 @@ Requisitos funcionais:
  - O usuário pode sincronizar os seus custos diretamente na cloud ( backup )
 - Depois de um certo número de meses, o usuário terá uma previsão do custo que terá para o mês seguinte.
 - Plotar um gráfico dos custos x tempo
- 
+- Futuramente uma aplicação web. 
+
+
 Requisitos não funcionais:
  - A sincronização pode ser feita apenas aplicando a diferença das operações, diminuindo o consumo de banda.

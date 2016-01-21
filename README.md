@@ -16,5 +16,5 @@ Requisitos funcionais:
 - Depois de um certo número de meses, o usuário terá uma previsão do custo que terá para o mês seguinte.
 - Plotar um gráfico dos custos x tempo
  
-Requisitos não funcionais
+Requisitos não funcionais:
  - A sincronização pode ser feita apenas aplicando a diferença das operações, diminuindo o consumo de banda.

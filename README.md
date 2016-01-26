@@ -18,6 +18,9 @@ Requisitos funcionais:
 - Plotar um gráfico dos custos x tempo
 - Futuramente uma aplicação web. 
 
+Modelo do Banco de dados:
+
+![screenshot at 2016-01-25 23 54 32](https://cloud.githubusercontent.com/assets/8482579/12570483/1bb71526-c3bf-11e5-829f-7a22315b8932.png)
 
 Requisitos não funcionais:
  - A sincronização pode ser feita apenas aplicando a diferença das operações, diminuindo o consumo de banda.

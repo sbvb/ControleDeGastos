@@ -22,6 +22,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,8 +33,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import Java.ConnectionServer;
+import Java.HttpHelper;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -128,23 +139,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean mayRequestContacts() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             return true;
-        }
-        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
-                        @Override
-                        @TargetApi(Build.VERSION_CODES.M)
-                        public void onClick(View v) {
-                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-                        }
-                    });
-        } else {
-            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
         }
         return false;
     }
@@ -152,7 +148,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Callback received when a permissions request has been completed.
      */
-    @Override
+
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         if (requestCode == REQUEST_READ_CONTACTS) {
@@ -335,9 +331,44 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             try {
                 // Simulate network access.
+
+
+                Document mainDoc;
+
+                String urlStr = "http://" + ConnectionServer.address + ":" +ConnectionServer.port + "/project/services/Hello/get_user_info?email=" + mEmail  + "&password=" + mPassword;
+
+                String outStr;
+
+                outStr = "empty";
+                mainDoc = HttpHelper.getXMLFromWeb(urlStr);
+                NodeList nodeList = mainDoc
+                            .getElementsByTagName("ax21:username");
+
+                if (nodeList.getLength() == 0) return null;
+                outStr = // myText.getText() +
+                            nodeList.item(0).getChildNodes().item(0).getNodeValue();
+
+                return outStr;
+/*
+                    Log.v("MeuApp", "testando");
+                    Log.v("MeuApp", outStr);
+
                 Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return null;
+
+                return outStr;
+
+*/
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                return e.getMessage();
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+                return e.getMessage();
+            } catch (SAXException e) {
+                e.printStackTrace();
+                return e.getMessage();
             }
 
             /*for (String credential : DUMMY_CREDENTIALS) {
@@ -347,7 +378,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     return pieces[1].equals(mPassword);
                 }
             }*/
-
+/*
                 Usuario usuario = null;
                 Cursor cursor = null;
 
@@ -365,7 +396,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     usuario = new Usuario(cursor.getString(cursor.getColumnIndex("name")),cursor.getString(cursor.getColumnIndex("email")),cursor.getString(cursor.getColumnIndex("password")));
                     return usuario.getName();
                 }
-                else return null;
+                else return null;*/
         }
 
         @Override

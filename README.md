@@ -24,3 +24,7 @@ Modelo do Banco de dados:
 
 Requisitos não funcionais:
  - A sincronização pode ser feita apenas aplicando a diferença das operações, diminuindo o consumo de banda.
+ - 
+ 
+DOUA draft
+https://www.dropbox.com/home/public/courses/c-cloud/example_projects/MessageCloud%20with%20doua
